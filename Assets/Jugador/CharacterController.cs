@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEditor.Search;
 
 public class CharacterController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform[] rayPoints;
     [SerializeField] private LayerMask driveable;
     [SerializeField] private Transform accelerationPoint;
+    [SerializeField] private GameObject[] tires = new GameObject[4];
+    [SerializeField] private GameObject[] frontTireParents = new GameObject[2];
 
     [Header("Suspension Settings")]
     [SerializeField] private float springStiffness;
@@ -33,6 +36,10 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private AnimationCurve turningCurve;
     [SerializeField] private float dragCoefficient = 1f;
 
+    [Header("Visuals")]
+    [SerializeField] private float tireRotSpeed = 3000f;
+    [SerializeField] private float maxSteeringAngle = 30f;
+
     private Vector3 currentCarLocalVelocity = Vector3.zero;
 
     private float carVelocityRatio = 0;
@@ -53,6 +60,7 @@ public class CharacterController : MonoBehaviour
         GroundCheck();
         CalculateCarVelocity();
         Movement();
+        Visuals();
     }
 
     void Update()
@@ -83,10 +91,16 @@ public class CharacterController : MonoBehaviour
 
                 carRB.AddForceAtPosition(netForce * rayPoints[i].up, rayPoints[i].position);
 
+                // Visuals
+                SetTirePosition(tires[i], hit.point + rayPoints[i].up * wheelRadius);
+
                 Debug.DrawLine(rayPoints[i].position, hit.point, Color.red);
             }
             else
             {
+                // Visuals
+                SetTirePosition(tires[i], rayPoints[i].position - rayPoints[i].up * maxLenght);
+
                 wheelsIsGrounded[i] = 0;
                 Debug.DrawLine(rayPoints[i].position, rayPoints[i].position + (wheelRadius + maxLenght) * -rayPoints[i].up, Color.green);
             }
@@ -163,7 +177,40 @@ public class CharacterController : MonoBehaviour
     }
 
     #endregion
+
+   #region Visuals
+
+    private void Visuals()
+    {
+        TireVisuals();
+    }
+
+    private void TireVisuals()
+    {
+        float steeringAngle = maxSteeringAngle * steerInput;
+
+        for (int i = 0; i < tires.Length; i++)
+        {
+            if(i < 2)
+            {
+                tires[i].transform.Rotate(Vector3.right, tireRotSpeed * carVelocityRatio * Time.deltaTime, Space.Self);
+
+                frontTireParents[i].transform.localEulerAngles = new Vector3(frontTireParents[i].transform.localEulerAngles.x, steeringAngle, frontTireParents[i].transform.localEulerAngles.z);
+            }
+            else
+            {
+                tires[i].transform.Rotate(Vector3.right, tireRotSpeed * moveInput * Time.deltaTime, Space.Self);
+            }
+        }
+    }
+
+    private void SetTirePosition(GameObject tire, Vector3 targetPosition)
+    {
+        tire.transform.position = targetPosition;
+    }
     
+   #endregion
+
     #region  Input Handling
     private void GetPlayerInput()
     {
