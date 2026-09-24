@@ -1055,6 +1055,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jugador 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5715434617885193786, guid: 9276d78ba6b13ac48aac0921e7bf137e, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: bfd4029cf3e7d134ab0c6450725ff155, type: 3}
+    - target: {fileID: 5715434617885193786, guid: 9276d78ba6b13ac48aac0921e7bf137e, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

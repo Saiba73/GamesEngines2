@@ -2,6 +2,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEditor.Search;
+using UnityEngine.UI;
+using System;
 
 public class CharacterController : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private Transform accelerationPoint;
     [SerializeField] private GameObject[] tires = new GameObject[4];
     [SerializeField] private GameObject[] frontTireParents = new GameObject[2];
+    [SerializeField] private TrailRenderer[] skidMarks = new TrailRenderer[2];
+    [SerializeField] private ParticleSystem[] skidSmokes = new ParticleSystem[2];
+    [SerializeField] private AudioSource engineSound, skidSound;
 
     [Header("Suspension Settings")]
     [SerializeField] private float springStiffness;
@@ -39,6 +44,13 @@ public class CharacterController : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private float tireRotSpeed = 3000f;
     [SerializeField] private float maxSteeringAngle = 30f;
+    [SerializeField] private float minSideSkidVelocity = 10f;
+
+    [Header("Audio")]
+    [SerializeField]
+    [Range(0,1)] private float minPitch = 1f;
+    [SerializeField]
+    [Range(0,5)] private float maxPitch = 5f;
 
     private Vector3 currentCarLocalVelocity = Vector3.zero;
 
@@ -52,8 +64,6 @@ public class CharacterController : MonoBehaviour
         
     }
 
-    
-
     void FixedUpdate()
     {
         suspension();
@@ -61,6 +71,7 @@ public class CharacterController : MonoBehaviour
         CalculateCarVelocity();
         Movement();
         Visuals();
+        EngineSound();
     }
 
     void Update()
@@ -183,6 +194,7 @@ public class CharacterController : MonoBehaviour
     private void Visuals()
     {
         TireVisuals();
+        Vfx();
     }
 
     private void TireVisuals()
@@ -208,8 +220,61 @@ public class CharacterController : MonoBehaviour
     {
         tire.transform.position = targetPosition;
     }
+
+    private void Vfx()
+    {
+        if(isGrounded && Math.Abs(currentCarLocalVelocity.x) > minSideSkidVelocity)
+        {
+            ToggleSkidMarks(true);
+            ToggleSkidSmokes(true);
+            ToggleSkidSound(true);
+        }
+        else
+        {
+            ToggleSkidMarks(false);
+            ToggleSkidSmokes(false);
+            ToggleSkidSound(false);
+        }
+    }
+
+    private void ToggleSkidMarks(bool toggle)
+    {
+        foreach (var skidMark in skidMarks)
+            {
+                skidMark.emitting = toggle;
+            }
+    }
+
+    private void ToggleSkidSmokes(bool toggle)
+    {
+        foreach(var smoke in skidSmokes)
+        {
+            if (toggle)
+            {
+                smoke.Play();
+            }
+            else
+            {
+                smoke.Stop();
+            }
+        }
+    }
     
    #endregion
+
+    #region Audio
+
+    private void EngineSound()
+    {
+        engineSound.pitch = Mathf.Lerp(minPitch, maxPitch, Mathf.Abs(carVelocityRatio));
+    }
+
+    private void ToggleSkidSound(bool toggle)
+    {
+        skidSound.mute = !toggle;
+    }
+
+    #endregion
 
     #region  Input Handling
     private void GetPlayerInput()
