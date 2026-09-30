@@ -1,11 +1,6 @@
 using UnityEngine;
 
-/// <summary>
-/// Mario Kart style HUD minimap.
-/// A top-down orthographic camera defines the map area. Each player's world
-/// position is converted to a viewport point of that camera, which is then
-/// mapped onto the UI map panel where the player's icon lives.
-/// </summary>
+
 public class MinimapHUD : MonoBehaviour
 {
     [Header("References")]
@@ -30,7 +25,6 @@ public class MinimapHUD : MonoBehaviour
 
     private void Awake()
     {
-        // Icons are positioned relative to the center of the map panel.
         foreach (RectTransform icon in icons)
         {
             if (icon == null) continue;
@@ -49,7 +43,6 @@ public class MinimapHUD : MonoBehaviour
         {
             if (players[i] == null || icons[i] == null) continue;
 
-            // 0..1 position of the car inside the minimap camera's view
             Vector3 vp = minimapCamera.WorldToViewportPoint(players[i].position);
 
             if (clampToMap)
@@ -58,14 +51,12 @@ public class MinimapHUD : MonoBehaviour
                 vp.y = Mathf.Clamp01(vp.y);
             }
 
-            // Convert to UI position relative to the panel's center
             icons[i].anchoredPosition = new Vector2(
                 (vp.x - 0.5f) * map.width,
                 (vp.y - 0.5f) * map.height);
 
             if (rotateIcons)
             {
-                // Car heading expressed in the minimap camera's screen axes
                 Vector3 fwd = players[i].forward;
                 float x = Vector3.Dot(fwd, minimapCamera.transform.right);
                 float y = Vector3.Dot(fwd, minimapCamera.transform.up);
