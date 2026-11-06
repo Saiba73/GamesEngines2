@@ -9887,6 +9887,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jugador 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4448809133062291514, guid: 9276d78ba6b13ac48aac0921e7bf137e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 11b90ed5d4a0e064ca7ceb5739deb9c2, type: 2}
     - target: {fileID: 5715434617885193786, guid: 9276d78ba6b13ac48aac0921e7bf137e, type: 3}
       propertyPath: m_Actions
       value: 
@@ -10371,6 +10375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586172957}
   - component: {fileID: 1586172956}
+  - component: {fileID: 1586172958}
   m_Layer: 0
   m_Name: RaceManager
   m_TagString: Untagged
@@ -10414,6 +10419,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1586172958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586172955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebbf58a88c0b8705a35507daa2834d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceEndController
+  raceManager: {fileID: 1586172956}
 --- !u!1 &1591545232 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d05dca545e61d804f887c76b82443a14, type: 3}

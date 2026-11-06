@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "GamesEngines2.slnx"
+    "dotnet.defaultSolution": "Ruta Locura.slnx"
 }
