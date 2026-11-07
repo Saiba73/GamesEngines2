@@ -19,7 +19,7 @@ public class Winner : MonoBehaviour
     {
         string winnerName = PlayerPrefs.GetString("Winner");
 
-        if(winnerName == "Jugador 1")
+        if(winnerName == "P1")
         {
             
         }
