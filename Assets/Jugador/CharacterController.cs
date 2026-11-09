@@ -56,11 +56,13 @@ public class CharacterController : MonoBehaviour
 
     private float carVelocityRatio = 0;
 
+    private RaceManager raceManager;
 
     void Start()
     {
         carRB = this.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
+        raceManager = FindFirstObjectByType<RaceManager>();
         
     }
 
@@ -279,6 +281,14 @@ public class CharacterController : MonoBehaviour
     #region  Input Handling
     private void GetPlayerInput()
     {
+
+        if (raceManager != null && !raceManager.RaceStarted)
+        {
+            moveInput = 0f;
+            steerInput = 0f;
+            return;
+        }
+
         moveInput = playerInput.actions["Move"].ReadValue<Vector2>().y;
         steerInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
     }

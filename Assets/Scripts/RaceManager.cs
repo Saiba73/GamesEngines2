@@ -31,6 +31,11 @@ public class RaceManager : MonoBehaviour
     private readonly List<Racer> ranking = new List<Racer>();
     private int finishedCount;
 
+    public bool RaceStarted { get; private set; } = false;
+    [SerializeField] private AudioSource music;
+
+
+
     private void Awake()
     {
         if (checkpoints.Length < 2)
@@ -57,6 +62,8 @@ public class RaceManager : MonoBehaviour
 
     private void Update()
     {
+        if (!RaceStarted) return;
+
         ranking.Sort(CompareRacers);
 
         for (int i = 0; i < ranking.Count; i++)
@@ -67,6 +74,8 @@ public class RaceManager : MonoBehaviour
 
     public void CheckpointReached(Rigidbody body, int index)
     {
+        if (!RaceStarted) return;
+
         Racer racer = FindRacer(body);
         if (racer == null || racer.finishOrder != 0) return;
 
@@ -116,9 +125,18 @@ public class RaceManager : MonoBehaviour
         return null;
     }
 
+    public void StartRace()
+    {
+        if (RaceStarted) return;
+        RaceStarted = true;
+        music.mute = false;
+        music.Play();
+    }
+
     public int GetPosition(int racerIndex) => racers[racerIndex].position;
 
     public int GetLap(int racerIndex) => Mathf.Min(racers[racerIndex].lap, totalLaps);
 
     public bool IsFinished(int racerIndex) => racers[racerIndex].finishOrder != 0;
 }
+

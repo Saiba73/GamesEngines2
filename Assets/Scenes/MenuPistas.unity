@@ -230,16 +230,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2062353874}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: IrAEscena
-        m_Mode: 5
+      - m_Target: {fileID: 138984785}
+        m_TargetAssemblyTypeName: CargarMapas, Assembly-CSharp
+        m_MethodName: CargarMapa3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mapa1
+          m_StringArgument: Mapa3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &15567967
@@ -433,6 +433,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98545422}
   m_CullTransparentMesh: 1
+--- !u!1 &138984784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 138984786}
+  - component: {fileID: 138984785}
+  m_Layer: 0
+  m_Name: Functions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &138984785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138984784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4cbb22872481af4e97ced44a5ac1440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CargarMapas
+--- !u!4 &138984786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138984784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &168417713
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 34bc057e126ad3e4d8dc65ad67b00ad0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1339,7 +1383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 504b7e6715ed35c4b87244d0c9813346, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1682,16 +1726,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2062353874}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: IrAEscena
-        m_Mode: 5
+      - m_Target: {fileID: 138984785}
+        m_TargetAssemblyTypeName: CargarMapas, Assembly-CSharp
+        m_MethodName: CargarMapa2
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mapa1
+          m_StringArgument: Mapa2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1036434293
@@ -2155,7 +2199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: af3067baf42cea84ca8cab7431e5fa56, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2926,10 +2970,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2062353874}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: IrAEscena
-        m_Mode: 5
+      - m_Target: {fileID: 138984785}
+        m_TargetAssemblyTypeName: CargarMapas, Assembly-CSharp
+        m_MethodName: CargarMapa1
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3355,3 +3399,4 @@ SceneRoots:
   - {fileID: 2062353873}
   - {fileID: 441544784}
   - {fileID: 500627729}
+  - {fileID: 138984786}
