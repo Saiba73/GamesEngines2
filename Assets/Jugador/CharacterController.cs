@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor.Search;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class CharacterController : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] private float tireRotSpeed = 3000f;
     [SerializeField] private float maxSteeringAngle = 30f;
     [SerializeField] private float minSideSkidVelocity = 10f;
+    [SerializeField] private TextMeshProUGUI speedsDisplay;
 
     [Header("Audio")]
     [SerializeField]
@@ -197,6 +199,13 @@ public class CharacterController : MonoBehaviour
     {
         TireVisuals();
         Vfx();
+        DisplaySpeed();
+    }
+
+    private void DisplaySpeed()
+    {
+        //Debug.Log((int)(carRB.linearVelocity.magnitude * 3.6f));
+        speedsDisplay.text = (int)(carRB.linearVelocity.magnitude * 3.6f) + "KM/H";
     }
 
     private void TireVisuals()

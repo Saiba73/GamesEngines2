@@ -15,7 +15,7 @@ public class RacePositionUI : MonoBehaviour
         string text = Ordinal(position);
 
         if (raceManager.IsFinished(racerIndex))
-            text += "\nFinished!";
+            text += "\nFIN!";
         else
             text += $"\nVuelta {raceManager.GetLap(racerIndex)}/{raceManager.TotalLaps}";
 
