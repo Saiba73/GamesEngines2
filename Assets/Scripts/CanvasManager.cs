@@ -4,7 +4,7 @@ public class CanvasManager : MonoBehaviour
 {
     // Assign your canvases in the Inspector window
     [SerializeField] private GameObject mainMenuCanvas;
-    [SerializeField] private GameObject collectiblesCanvas;
+    [SerializeField] private GameObject controlesCanvas;
 
     private void Start()
     {
@@ -14,13 +14,13 @@ public class CanvasManager : MonoBehaviour
 
     public void ShowMainMenu()
     {
-        mainMenuCanvas.SetActive(true);
-        collectiblesCanvas.SetActive(false);
+        //mainMenuCanvas.SetActive(true);
+        controlesCanvas.SetActive(false);
     }
 
-    public void ShowCollectibles()
+    public void ShowControles()
     {
-        mainMenuCanvas.SetActive(false);
-        collectiblesCanvas.SetActive(true);
+        //mainMenuCanvas.SetActive(false);
+        controlesCanvas.SetActive(true);
     }
 }
