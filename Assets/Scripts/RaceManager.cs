@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RaceManager : MonoBehaviour
@@ -23,6 +24,8 @@ public class RaceManager : MonoBehaviour
     [SerializeField] private Checkpoint[] checkpoints;
     [SerializeField] private int totalLaps = 3;
     [SerializeField] private Racer[] racers;
+    [SerializeField] private TextMeshProUGUI timerTextP1;
+    [SerializeField] private TextMeshProUGUI timerTextP2;
 
     public int TotalLaps => totalLaps;
 
@@ -33,6 +36,9 @@ public class RaceManager : MonoBehaviour
 
     public bool RaceStarted { get; private set; } = false;
     [SerializeField] private AudioSource music;
+
+    private float currentTime = 0;
+    private TimeSpan timer;
 
 
 
@@ -63,6 +69,11 @@ public class RaceManager : MonoBehaviour
     private void Update()
     {
         if (!RaceStarted) return;
+
+        currentTime += Time.deltaTime;
+        timer = TimeSpan.FromSeconds(currentTime);
+        timerTextP1.text = timer.Minutes.ToString() + ":" + timer.Seconds.ToString() + ":" + timer.Milliseconds.ToString();
+        timerTextP2.text = timer.Minutes.ToString() + ":" + timer.Seconds.ToString() + ":" + timer.Milliseconds.ToString();
 
         ranking.Sort(CompareRacers);
 
