@@ -17,4 +17,9 @@ public class CargarMapas : MonoBehaviour
     {
         SceneManager.LoadScene("Mapa1");
     }
+
+    public void Cargarmenu()
+    {
+        SceneManager.LoadScene("MenuPrincipal");
+    }
 }

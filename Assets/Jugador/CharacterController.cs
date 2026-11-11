@@ -1,15 +1,16 @@
 using System.Runtime.CompilerServices;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using UnityEditor.Search;
+//using UnityEditor.Search;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CharacterController : MonoBehaviour
 {
     [Header("Referances")]
-    PlayerInput playerInput;
+    //PlayerInput playerInput;
     [SerializeField] private Rigidbody carRB;
     [SerializeField] private Transform[] rayPoints;
     [SerializeField] private LayerMask driveable;
@@ -54,16 +55,30 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     [Range(0,5)] private float maxPitch = 5f;
 
+    [Header("Input")]
+    [SerializeField] private InputActionAsset inputActions;
+
+    private InputAction moveAction;
+
+
     private Vector3 currentCarLocalVelocity = Vector3.zero;
 
     private float carVelocityRatio = 0;
 
     private RaceManager raceManager;
 
+    void Awake()
+    {
+        moveAction = inputActions.FindActionMap("Player").FindAction("Move");
+    }
+
+    void OnEnable()  => moveAction.Enable();
+    void OnDisable() => moveAction.Disable();
+
     void Start()
     {
         carRB = this.GetComponent<Rigidbody>();
-        playerInput = GetComponent<PlayerInput>();
+        //playerInput = GetComponent<PlayerInput>();
         raceManager = FindFirstObjectByType<RaceManager>();
         
     }
@@ -80,6 +95,11 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MenuPrincipal");
+        }
         GetPlayerInput();
     }
 
@@ -291,15 +311,16 @@ public class CharacterController : MonoBehaviour
     private void GetPlayerInput()
     {
 
-        if (raceManager != null && !raceManager.RaceStarted)
+        if (raceManager == null || !raceManager.RaceStarted)
         {
             moveInput = 0f;
             steerInput = 0f;
             return;
         }
 
-        moveInput = playerInput.actions["Move"].ReadValue<Vector2>().y;
-        steerInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+        Vector2 move = moveAction.ReadValue<Vector2>();
+        moveInput  = move.y;
+        steerInput = move.x;
     }
 
     #endregion
